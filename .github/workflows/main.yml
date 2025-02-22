@@ -17,7 +17,6 @@ jobs:
     - name: Build the code 
       run: mvn package
     - name: Connect to Lab machine and Deploy the code on tomcat9 
-    - name: ssh scp ssh pipelines
       uses: cross-the-world/ssh-scp-ssh-pipelines@latest
       with:
         host: '3.109.4.144'
