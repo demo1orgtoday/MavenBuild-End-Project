@@ -21,7 +21,7 @@ jobs:
       with:
         host: '3.109.4.144'
         user: 'labuser'
-        password: ${{secrets.LAB_PASSWORD}}
+        pass: ${{secrets.LAB_PASSWORD}}
         port: 22
         connect_timeout: 10s
         first_ssh: |
