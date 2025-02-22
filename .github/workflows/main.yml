@@ -16,3 +16,20 @@ jobs:
        cache: 'maven'
     - name: Build the code 
       run: mvn package
+    - name: Connect to Lab machine and Deploy the code on tomcat
+      uses: cross-the-world/ssh-scp-ssh-pipelines@latest
+      with:
+        host: '3.109.4.144'
+        user: 'labuser'
+        password: 'Nuvelabs123$'
+        port: 22
+        connect_timeout: 10s
+        first_ssh: |
+
+        scp: |
+
+        
+
+        scp: |
+
+        
