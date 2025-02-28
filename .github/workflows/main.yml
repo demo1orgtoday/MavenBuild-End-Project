@@ -1,34 +1,29 @@
-name: CICD with End project
-on: workflow_call
+name: CICD using Maven and tomcat
+on:
+ push:  # run when there is commit to repo
+ workflow_dispatch:  # run manually
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout the code 
+ CICDjob:
+   runs-on: ubuntu-latest
+   steps:
+    - name: Clone the repo on ubuntu server
       uses: actions/checkout@v4
-    - name: Install java and Maven
+    - name: Install Java and maven on ubuntu server
       uses: actions/setup-java@v4
       with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: 'maven'
-    - name: Cache Maven Dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-cache
-    - name: Install docker 
-      uses: docker/setup-buildx-action@v3
-    - name: build the code
+       distribution: 'temurin'
+       java-version: '11'
+       cache: 'maven'
+    - name: Build the code 
       run: mvn package
-    - name: Login to dockerhub
-      uses: docker/login-action@v3
+    - name: Connect to Lab machine and trigger a Jenkins job 
+      uses: cross-the-world/ssh-scp-ssh-pipelines@latest
       with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: Build Image and push to dockerhub 
-      uses: docker/build-push-action@v6
-      with: 
-       context: .
-       push: true 
-       tags: ${{ secrets.DOCKERHUB_USERNAME }}/myprojectimage:latest
+        host: '3.111.54.78'
+        user: 'labuser'
+        pass: 'Nuvelabs123$'
+        port: 22
+        connect_timeout: 10s
+        first_ssh: |
+          curl -l -u admin:Root123$ http://localhost:8080/job/Githubaction_trigger/build?token=token1    
+    
