@@ -19,7 +19,7 @@ jobs:
     - name: Connect to Lab machine and trigger a Jenkins job 
       uses: cross-the-world/ssh-scp-ssh-pipelines@latest
       with:
-        host: '3.111.54.78'
+        host: '13.202.46.128'
         user: 'labuser'
         pass: 'Nuvelabs123$'
         port: 22
